@@ -6,7 +6,7 @@ class Api::AnimalsController < ApplicationController
 
   def show
     aminal = Animal.find params[:id]
-    render json: aminal.to_json(include: :zoo)
+    render json: aminal
   end
 
   def update

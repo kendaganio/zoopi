@@ -4,19 +4,30 @@ describe "Zoo API" do
 
   before :each do
     FactoryGirl.create :zoo, name: 'ZooPad'
-    FactoryGirl.create :zoo, name: 'ZooPad2'
+    FactoryGirl.create :zoo_with_animals, name: 'ZooPad2'
   end
 
   describe "GET /zoos" do
     it "returns all the zoos" do
-      get '/api/zoos', {}, { 'Accept' => 'application/json' }
+      get '/api/zoos', {}, { 'accept' => 'application/json' }
 
       body = JSON.parse response.body
       zoo_names = body.map { |m| m['name'] }
+      aminals = body.map { |z| z['animals'] }
 
       expect(response.status).to eq 200
+      expect(aminals.nil?).to eq false
       expect(zoo_names).to match_array ['ZooPad', 'ZooPad2']
+    end
 
+    it "includes aminals" do
+      get '/api/zoos', {}, { 'Accept' => 'application/json' }
+
+      body = JSON.parse response.body
+      aminals = body.map { |z| z['animals'] }
+
+      expect(response.status).to eq 200
+      expect(aminals.nil?).to eq false
     end
   end
 

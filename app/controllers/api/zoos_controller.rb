@@ -6,7 +6,7 @@ class Api::ZoosController < ApplicationController
 
   def show
     zoo = Zoo.find(params[:id])
-    render json: zoo.to_json(include: :animals)
+    render json: zoo
   end
 
   def update
