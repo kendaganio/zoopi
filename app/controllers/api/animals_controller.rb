@@ -1,7 +1,14 @@
 class Api::AnimalsController < ApplicationController
 
   def index
-    render json: Animal.all
+    animals =
+      if params[:filters]
+        Animal.joins(:tags).where(tags: {value: params[:filters]}).uniq
+      else
+        Animal.all
+      end
+
+    render json: animals
   end
 
   def show

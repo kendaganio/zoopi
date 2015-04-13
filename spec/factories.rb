@@ -20,4 +20,8 @@ FactoryGirl.define do
 
   end
 
+  factory :tag do
+    value 'Ulam'
+  end
+
 end

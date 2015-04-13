@@ -17,6 +17,27 @@ describe "Animal API" do
       expect(response.status).to eq 200
       expect(aminals).to match_array ['Dog', 'Cat']
     end
+
+
+    context "has filters" do
+
+      before do
+        dog = Animal.find_by_name 'Dog'
+        wildTag = FactoryGirl.create :tag, value: 'wild'
+
+        dog.tags << wildTag
+      end
+
+      it "returns only filtered aminals" do
+        get '/api/animals?filters[]=wild', {}, { 'Accept' => 'application/json' }
+
+        body = JSON.parse response.body
+        aminals = body.map { |m| m['name'] }
+
+        expect(aminals).to match_array ['Dog']
+      end
+
+    end
   end
 
   describe "GET /animals/:id" do
