@@ -27,7 +27,7 @@ describe "Zoo API" do
       aminals = body.map { |z| z['animals'] }
 
       expect(response.status).to eq 200
-      expect(aminals.nil?).to eq false
+      expect(aminals).to_not be_nil
     end
   end
 

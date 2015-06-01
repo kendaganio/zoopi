@@ -5,4 +5,6 @@ Rails.application.routes.draw do
     resources :animals
   end
 
+  get '/api/unicorns' => 'application#unicorns'
+
 end
